@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({ origin: "http://localhost:8080" }));
+app.use(cors({ origin: 'https://pacerhr.herokuapp.com' }));
 
 const { createUser } = require("../resolvers/postResolvers");
 const { userLogin } = require("../resolvers/postResolvers");
