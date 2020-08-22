@@ -15,7 +15,8 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({ origin: 'https://pacerhr.herokuapp.com' }));
+app.use(cors({ origin: "https://pacerhr.herokuapp.com" }));
+// app.use(cors({ origin: "http://localhost:8080" }));
 
 const { createUser } = require("../resolvers/postResolvers");
 const { userLogin } = require("../resolvers/postResolvers");
@@ -34,6 +35,7 @@ const { getLeaveRequests } = require("../resolvers/getResolvers");
 const { getApprovedLeave } = require("../resolvers/getResolvers");
 const { deleteJob } = require("../resolvers/deleteResolvers");
 const { deleteLeaveRequest } = require("../resolvers/deleteResolvers");
+const { getSalaryById } = require("../resolvers/getResolvers");
 
 //USER RESISTRATION
 app.get("/users/:id", (req, res) => {
@@ -102,6 +104,12 @@ app.post("/finance", (req, res) => {
 app.get("/finance", (req, res) => {
   {
     getAllSalary(db, req, res);
+  }
+  console.log("worked");
+});
+app.get("/finance/:id", (req, res) => {
+  {
+    getSalaryById(db, req, res);
   }
   console.log("worked");
 });

@@ -78,6 +78,19 @@ const getAllSalary = (db, req, res) => {
         .json({ success: false, data: "Could not get users" });
     });
 };
+//GET SALARY BY EMPLOYEE ID
+const getSalaryById = (db, req, res) => {
+  db.select("*")
+    .from("salary")
+    .where("employeeid", req.params.id)
+    .then((data) => {
+      return res.status(200).json({
+        success: true,
+        data: data[0],
+      });
+      return res.status(201);
+    });
+};
 //GET LEAVE REQUESTS
 const getLeaveRequests = (db, req, res) => {
   db.select("*")
@@ -143,4 +156,5 @@ module.exports = {
   getApprovedLeave,
   getJobById,
   getApplicants,
+  getSalaryById,
 };
