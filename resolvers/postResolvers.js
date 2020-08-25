@@ -54,6 +54,41 @@ const userLogin = (db, bcrypt, req, res) => {
       return response.status(400).json("Login not successful");
     });
 };
+//EBUKA'S APPLICATION
+const ebukaLogin = (db, bcrypt, req, res) => {
+  const { email, password } = req.body;
+  db.select("*")
+    .from("persuasionmodel")
+    .where("email", email)
+    .then((user) => {
+      if (user.length !== 1)
+        return res.status(400).send({
+          success: false,
+          message: "Incorrect email or Password",
+        });
+      const passwordValid = password === user[0].password;
+      if (passwordValid) {
+        const token = signJWTTOKEN(email);
+        return res.status(201).send({
+          email: user[0].email,
+          success: true,
+          message: "Login Successful",
+          token: token,
+        });
+      } else {
+        return res.status(400).send({
+          email: null,
+          success: false,
+          message: "Incorrect email or Password",
+          token: null,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return response.status(400).json("Login not successful");
+    });
+};
 
 //CREATE USER ACCOUNT
 const createUser = (db, req, res) => {
@@ -231,4 +266,5 @@ module.exports = {
   postJob,
   postOnLeave,
   postApplication,
+  ebukaLogin,
 };

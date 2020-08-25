@@ -6,7 +6,7 @@ const knex = require("knex");
 const db = new knex({
   client: "pg",
   connection: process.env.DATABASE_URL,
-  // connection: "postgres://postgres:omodot@localhost:5432/pacerhr",
+  //connection: "postgres://postgres:omodot@localhost:5432/pacerhr",
 });
 
 module.exports = db;

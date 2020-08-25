@@ -16,8 +16,9 @@ app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({ origin: "https://pacerhr.herokuapp.com" }));
-// app.use(cors({ origin: "http://localhost:8080" }));
+//app.use(cors({ origin: "http://localhost:8080" }));
 
+const { ebukaLogin } = require("../resolvers/postResolvers");
 const { createUser } = require("../resolvers/postResolvers");
 const { userLogin } = require("../resolvers/postResolvers");
 const { addLeaveRequest } = require("../resolvers/postResolvers");
@@ -56,6 +57,12 @@ app.post("/register", (req, res) => {
 });
 
 //USER LOGIN
+app.post("/ebukalogin", (req, res) => {
+  {
+    ebukaLogin(db, bcrypt, req, res);
+  }
+  console.log("Login Worked");
+});
 app.post("/login", (req, res) => {
   {
     userLogin(db, bcrypt, req, res);
