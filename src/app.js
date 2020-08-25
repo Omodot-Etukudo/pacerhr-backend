@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({ origin: "https://pacerhr.herokuapp.com" }));
+app.use(cors({ origin: "https://ebukabankz.netlify.app" }));
 //app.use(cors({ origin: "http://localhost:8080" }));
 
 const { ebukaLogin } = require("../resolvers/postResolvers");
