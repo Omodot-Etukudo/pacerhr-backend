@@ -39,6 +39,7 @@ const { getPerformance } = require("../resolvers/getResolvers");
 const { getLeaveRequests } = require("../resolvers/getResolvers");
 const { getApprovedLeave } = require("../resolvers/getResolvers");
 const { deleteJob } = require("../resolvers/deleteResolvers");
+const { deleteApplicant } = require("../resolvers/deleteResolvers");
 const { deleteEmployee } = require("../resolvers/deleteResolvers");
 const { deleteLeaveRequest } = require("../resolvers/deleteResolvers");
 const { getSalaryById } = require("../resolvers/getResolvers");
@@ -61,6 +62,11 @@ app.post("/performance", (req, res) => {
 app.delete("/users", (req, res) => {
   {
     deleteEmployee(db, req, res);
+  }
+});
+app.delete("/applicants", (req, res) => {
+  {
+    deleteApplicant(db, req, res);
   }
 });
 //USER RESISTRATION
