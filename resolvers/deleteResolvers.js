@@ -14,6 +14,22 @@ const deleteJob = (db, req, res) => {
         .json({ success: false, message: "Job Could Not Be deleted" });
     });
 };
+const deleteEmployee = (db, req, res) => {
+  const { employeeid } = req.body;
+  db("users")
+    .where({ employeeid })
+    .del()
+    .then((data) => {
+      return res
+        .status(200)
+        .json({ success: true, message: "Successfully Deleted" });
+    })
+    .catch((e) => {
+      return res
+        .status(400)
+        .json({ success: false, message: "Could Not Be deleted" });
+    });
+};
 const deleteLeaveRequest = (db, req, res) => {
   const { employeeid } = req.body;
   console.log(req.body);
@@ -35,6 +51,7 @@ const deleteLeaveRequest = (db, req, res) => {
 };
 
 module.exports = {
+  deleteEmployee,
   deleteJob,
   deleteLeaveRequest,
 };
