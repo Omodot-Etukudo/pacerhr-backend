@@ -257,8 +257,27 @@ const postOnLeave = (db, req, res) => {
       return res.status(400).json(`Leave request could not be approved `);
     });
 };
+const addPerformance = (db, req, res) => {
+  const { month, average } = req.body;
+  db("performance")
+    .insert({ month, average })
+    .returning("*")
+    .then((performance) => {
+      const response = {
+        success: true,
+        message: "Added",
+        data: performance,
+      };
+      return res.status(201).json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).json(`Could not send`);
+    });
+};
 //EXPORT THE POST METHODS
 module.exports = {
+  addPerformance,
   addLeaveRequest,
   createUser,
   userLogin,

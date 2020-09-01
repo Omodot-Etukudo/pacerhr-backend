@@ -16,9 +16,9 @@ app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// app.use(cors({ origin: "http://localhost:8080" }));
 app.use(cors({ origin: "https://pacerhr.herokuapp.com" }));
 // app.use(cors({ origin: "https://ebukabankz.netlify.app" }));
-//app.use(cors({ origin: "http://localhost:8080" }));
 
 const { ebukaLogin } = require("../resolvers/postResolvers");
 const { createUser } = require("../resolvers/postResolvers");
@@ -26,6 +26,7 @@ const { userLogin } = require("../resolvers/postResolvers");
 const { addLeaveRequest } = require("../resolvers/postResolvers");
 const { createSalary } = require("../resolvers/postResolvers");
 const { postJob } = require("../resolvers/postResolvers");
+const { addPerformance } = require("../resolvers/postResolvers");
 const { postApplication } = require("../resolvers/postResolvers");
 const { postOnLeave } = require("../resolvers/postResolvers");
 const { getUserbyid } = require("../resolvers/getResolvers");
@@ -34,12 +35,28 @@ const { getApplicants } = require("../resolvers/getResolvers");
 const { getAllSalary } = require("../resolvers/getResolvers");
 const { getAllJobs } = require("../resolvers/getResolvers");
 const { getJobById } = require("../resolvers/getResolvers");
+const { getPerformance } = require("../resolvers/getResolvers");
 const { getLeaveRequests } = require("../resolvers/getResolvers");
 const { getApprovedLeave } = require("../resolvers/getResolvers");
 const { deleteJob } = require("../resolvers/deleteResolvers");
 const { deleteLeaveRequest } = require("../resolvers/deleteResolvers");
 const { getSalaryById } = require("../resolvers/getResolvers");
+const { updateUser } = require("../resolvers/updateResolvers");
+const { updateSalary } = require("../resolvers/updateResolvers");
 
+//UPDATE USER DATA
+app.put("/users/:id", (req, res) => {
+  updateUser(db, req, res);
+});
+app.put("/finance/:id", (req, res) => {
+  updateSalary(db, req, res);
+});
+app.post("/performance", (req, res) => {
+  {
+    addPerformance(db, req, res);
+  }
+  console.log("worked");
+});
 //USER RESISTRATION
 app.get("/users/:id", (req, res) => {
   {
@@ -49,6 +66,11 @@ app.get("/users/:id", (req, res) => {
 app.get("/users", (req, res) => {
   {
     getAllUsers(db, req, res);
+  }
+});
+app.get("/performance", (req, res) => {
+  {
+    getPerformance(db, req, res);
   }
 });
 app.post("/register", (req, res) => {

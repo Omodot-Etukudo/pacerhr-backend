@@ -91,6 +91,18 @@ const getSalaryById = (db, req, res) => {
       return res.status(201);
     });
 };
+//GET PERFORMANCE
+const getPerformance = (db, req, res) => {
+  db.select("*")
+    .from("performance")
+    .then((data) => {
+      return res.status(200).json({
+        success: true,
+        data: data[0],
+      });
+      return res.status(201);
+    });
+};
 //GET LEAVE REQUESTS
 const getLeaveRequests = (db, req, res) => {
   db.select("*")
@@ -147,6 +159,7 @@ const getApplicants = (db, req, res) => {
 };
 
 module.exports = {
+  getPerformance,
   getAllJobs,
   getUserbyid,
   getUserbyname,
